@@ -1,0 +1,35 @@
+{
+  "name": "nextxp-template",
+  "version": "2.0.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run server-build && cross-env NODE_ENV=development node dist/server/server.js",
+    "start": "cross-env NODE_ENV=production node dist/server/server.js",
+    "prod": "npm run build && npm run start",
+    "build": "npm run client-build && npm run server-build",
+    "client-build": "npx next build",
+    "server-build": "tsc --build ./server/tsconfig.json",
+    "lint": "npx next lint"
+  },
+  "dependencies": {
+    "@enonic/nextjs-adapter": "2.0.0",
+    "cross-env": "^7.0.3",
+    "html-react-parser": "^4.2.2",
+    "next": "^13.4.12",
+    "next-transpile-modules": "^10.0.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "unescape": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.0",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "^18.2.6",
+    "@typescript-eslint/parser": "^6.7.0",
+    "eslint": "8.49.0",
+    "eslint-config-next": "13.4.19",
+    "prettier": "^3.0.3",
+    "typescript": "5.2.2"
+  }
+}
