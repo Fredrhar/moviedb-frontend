@@ -23,20 +23,19 @@ export default async function handler(req: NextApiRequest,
             const config = getLocaleProjectConfigById(projectId);
             console.dir(config);
             const paths = await fetchContentPathsForLocale('\${site}/', config);
-            const promises = paths.map((item: ContentPathItem) => {
-                const cp = item.params.contentPath;
+            for (let path of paths){
+                const cp = path.params.contentPath
                 if (cp[0] === "") {
-                    cp[0] = config.locale;
+                    cp[0] = config.locale
                 } else {
-                    cp.unshift(config.locale);
+                    cp.unshift(config.locale)
                 }
                 if (cp[0] == "default"){
                     cp[0] = "en"
                 }
-                return revalidatePath(res, cp);
-            });
-            await Promise.all(promises);
-            console.info(`Done revalidating everything`);
+                await revalidatePath(res, cp)
+            }
+            console.info(`Done revalidating everything`)
         } else {
             await revalidatePath(res, path);
             console.info(`Revalidated [${path}]`);
