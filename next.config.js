@@ -31,7 +31,7 @@ const config = {
  webpack: getEnonicWebpackConfig,
  headers: getEnonicHeaders,
  i18n: {
-  locales: ['en', 'no'],
+  locales: ['en'],
   defaultLocale: 'en',
  },
 };
