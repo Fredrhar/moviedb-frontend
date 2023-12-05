@@ -21,6 +21,7 @@ export default async function handler(req: NextApiRequest,
             console.info('Started revalidating everything...');
             const projectId = req.headers[PROJECT_ID_HEADER] as string | undefined;
             const config = getLocaleProjectConfigById(projectId);
+            console.dir(config);
             const paths = await fetchContentPathsForLocale('\${site}/', config);
             const promises = paths.map((item: ContentPathItem) => {
                 const cp = item.params.contentPath;
@@ -28,6 +29,9 @@ export default async function handler(req: NextApiRequest,
                     cp[0] = config.locale;
                 } else {
                     cp.unshift(config.locale);
+                }
+                if (cp[0] == "default"){
+                    cp[0] = "en"
                 }
                 return revalidatePath(res, cp);
             });
