@@ -16,13 +16,12 @@ export default async function handler(req: NextApiRequest,
 
     try {
         // Return 200 immediately and do revalidate in background
-        res.status(200).json({message: 'Revalidation started'});
+        res.status(200).json({message: 'Revalidation started'})
         if (!path) {
-            console.info('Started revalidating everything...');
-            const projectId = req.headers[PROJECT_ID_HEADER] as string | undefined;
-            const config = getLocaleProjectConfigById(projectId);
-            console.dir(config);
-            const paths = await fetchContentPathsForLocale('\${site}/', config);
+            console.info('Started revalidating everything...')
+            const projectId = req.headers[PROJECT_ID_HEADER] as string | undefined
+            const config = getLocaleProjectConfigById(projectId)
+            const paths = await fetchContentPathsForLocale('\${site}/', config)
             for (let path of paths){
                 const cp = path.params.contentPath
                 if (cp[0] === "") {
@@ -37,11 +36,11 @@ export default async function handler(req: NextApiRequest,
             }
             console.info(`Done revalidating everything`)
         } else {
-            await revalidatePath(res, path);
-            console.info(`Revalidated [${path}]`);
+            await revalidatePath(res, path)
+            console.info(`Revalidated [${path}]`)
         }
     } catch (err) {
-        console.error(`Revalidation [${path ?? 'everything'}] error: ` + err);
+        console.error(`Revalidation [${path ?? 'everything'}] error: ` + err)
     }
 }
 
